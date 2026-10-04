@@ -1,0 +1,25 @@
+# Values for the argo-cd Helm chart.
+repoServer:
+  extraContainers:
+    - name: cmp-helm-kustomize
+      image: ghcr.io/xorps/argocd-cmp-helm-kustomize:0.1.0
+      command: [/var/run/argocd/argocd-cmp-server]
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 999
+        allowPrivilegeEscalation: false
+        readOnlyRootFilesystem: true
+        capabilities:
+          drop: [ALL]
+        seccompProfile:
+          type: RuntimeDefault
+      volumeMounts:
+        - name: var-files
+          mountPath: /var/run/argocd
+        - name: plugins
+          mountPath: /home/argocd/cmp-server/plugins
+        - name: cmp-helm-kustomize-tmp
+          mountPath: /tmp
+  volumes:
+    - name: cmp-helm-kustomize-tmp
+      emptyDir: {}
