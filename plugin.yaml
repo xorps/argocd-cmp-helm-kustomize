@@ -1,0 +1,39 @@
+# No discover rule: Applications must set spec.source.plugin.name.
+apiVersion: argoproj.io/v1alpha1
+kind: ConfigManagementPlugin
+metadata:
+  name: helm-kustomize
+spec:
+  generate:
+    command: [cmp-helm-kustomize]
+  preserveFileMode: false
+  parameters:
+    static:
+      - name: path
+        title: Path
+        tooltip: Chart directory, or the kustomization root when files is set. Relative to the source path.
+      - name: releaseName
+        title: Release name
+        tooltip: Required unless files is set.
+      - name: namespace
+        title: Release namespace
+        tooltip: Required unless files is set.
+      - name: valueFiles
+        title: Value files
+        tooltip: Relative to the source path; must stay inside the repository.
+        collectionType: array
+      - name: values
+        title: Values
+        tooltip: "Helm --set entries: key=value"
+        collectionType: array
+      - name: files
+        title: Files
+        tooltip: Manifest files relative to path. When set, these are kustomized instead of rendering a chart.
+        collectionType: array
+      - name: skipCrds
+        title: Skip CRDs
+        tooltip: "\"true\" to leave out the chart's crds/ directory, e.g. when CRDs are managed by another Application."
+        string: "false"
+      - name: patches
+        title: Patches
+        tooltip: "YAML list of kustomize patches: {patch, target, options}."

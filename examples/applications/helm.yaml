@@ -1,0 +1,43 @@
+# Helm chart with values and patches.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: web-prod
+  namespace: argocd
+spec:
+  project: default
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: web-prod
+  source:
+    repoURL: https://github.com/xorps/argocd-cmp-helm-kustomize
+    targetRevision: main
+    path: examples/helm
+    plugin:
+      name: helm-kustomize
+      parameters:
+        - name: path
+          string: .
+        - name: releaseName
+          string: web
+        - name: namespace
+          string: web-prod
+        - name: valueFiles
+          array: [values-prod.yaml]
+        - name: values
+          array: [image.tag=1.27.3, migrations.enabled=true]
+        - name: patches
+          string: |
+            - target: {kind: Deployment, name: web-web}
+              patch: |
+                apiVersion: apps/v1
+                kind: Deployment
+                metadata:
+                  name: web-web
+                spec:
+                  template:
+                    metadata:
+                      annotations:
+                        example.com/patched: "true"
+  syncPolicy:
+    syncOptions: [CreateNamespace=true]

@@ -1,0 +1,29 @@
+# Plain manifests with patches.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: web-files
+  namespace: argocd
+spec:
+  project: default
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: web-files
+  source:
+    repoURL: https://github.com/xorps/argocd-cmp-helm-kustomize
+    targetRevision: main
+    path: examples/manifests
+    plugin:
+      name: helm-kustomize
+      parameters:
+        - name: files
+          array: [deployment.yaml, service.yaml]
+        - name: patches
+          string: |
+            - target: {kind: Deployment, name: web}
+              patch: |
+                - op: replace
+                  path: /spec/replicas
+                  value: 3
+  syncPolicy:
+    syncOptions: [CreateNamespace=true]
