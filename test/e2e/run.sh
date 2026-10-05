@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: Apache-2.0 OR MIT
 # Syncs the example Applications through the plugin in a kind cluster.
 # REVISION must be pushed to REPO, since Argo CD clones it.
 set -euo pipefail

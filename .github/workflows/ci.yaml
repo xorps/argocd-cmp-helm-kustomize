@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0 OR MIT
 name: CI
 
 on:
@@ -33,6 +34,13 @@ jobs:
           go-version-file: .tool-versions
       - run: make vet
       - run: make tidy-check
+
+  license:
+    name: license headers
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - run: make license-check
 
   lint:
     name: golangci-lint

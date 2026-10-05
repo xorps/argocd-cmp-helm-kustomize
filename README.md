@@ -91,3 +91,14 @@ ARGOCD_APP_PARAMETERS='[{"name":"path","string":"."},{"name":"releaseName","stri
   {"name":"namespace","string":"demo"},{"name":"values","array":["replicaCount=3"]}]' \
   ../../bin/cmp-helm-kustomize
 ```
+
+## License
+
+Licensed under either of
+
+- Apache License, Version 2.0 ([LICENSE-APACHE](LICENSE-APACHE))
+- MIT License ([LICENSE-MIT](LICENSE-MIT))
+
+at your option.
+
+Unless you explicitly state otherwise, any contribution you intentionally submit for inclusion in this project, as defined in the Apache-2.0 license, is dual licensed as above, without any additional terms or conditions.
