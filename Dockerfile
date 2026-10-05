@@ -1,4 +1,5 @@
 # syntax=docker/dockerfile:1
+# SPDX-License-Identifier: Apache-2.0 OR MIT
 ARG GO_VERSION=1.27.1
 
 FROM --platform=$BUILDPLATFORM golang:${GO_VERSION} AS build

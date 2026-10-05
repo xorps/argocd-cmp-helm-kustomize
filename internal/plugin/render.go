@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
 // Package plugin renders Helm charts or plain manifests with kustomize patches.
 package plugin
 

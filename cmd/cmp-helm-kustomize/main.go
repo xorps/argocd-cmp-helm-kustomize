@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
 // Command cmp-helm-kustomize is an Argo CD config management plugin.
 package main
 
